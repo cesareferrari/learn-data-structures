@@ -1,13 +1,12 @@
-class ListNode:
-    def __init__(self, data):
-        self.data = data
+class Node:
+    def __init__(self, value):
+        self.value = value
         self.next = None
 
 class LinkedList:
     def __init__(self, head):
         self.head = head
 
-    # returns value of element at index
     def read(self, index):
         cur_node = self.head
         cur_idx = 0
@@ -15,18 +14,18 @@ class LinkedList:
         while cur_idx < index:
             cur_node = cur_node.next
             cur_idx += 1
+
             if not cur_node:
                 return None
 
-        return cur_node.data
-
+        return cur_node.value
 
     def index_of(self, value):
         cur_node = self.head
         cur_idx = 0
 
         while cur_node:
-            if cur_node.data == value:
+            if cur_node.value == value:
                 return cur_idx
 
             cur_node = cur_node.next
@@ -34,18 +33,50 @@ class LinkedList:
 
         return None
 
+    def insert_at(self, index, value):
+        new_node = Node(value)
+
+        if index == 0:
+            new_node.next = self.head
+            self.head = new_node
+            return
+
+        cur_node = self.head
+        cur_idx = 0
+
+        while cur_idx < (index - 1):
+            cur_node = cur_node.next
+            cur_idx += 1
+
+        new_node.next = cur_node.next
+        cur_node.next = new_node
+        
 
 
+n0 = Node("banana")
+n1 = Node("apple")
+n2 = Node("fig")
+n3 = Node("apricot")
+n4 = Node("pear")
 
-node1 = ListNode(5)
-node2 = ListNode(7)
-node3 = ListNode(9)
-node4 = ListNode(11)
+n0.next = n1
+n1.next = n2
+n2.next = n3
+n3.next = n4
 
-node1.next = node2
-node2.next = node3
-node3.next = node4
+my_list = LinkedList(n0)
 
-linked_list = LinkedList(node1)
+print(my_list.read(0))
+print(my_list.read(1))
+print(my_list.read(2))
+print(my_list.read(3))
+print(my_list.read(4))
 
-print(linked_list.index_of(12))
+my_list.insert_at(0, 'pineapple')
+
+print(my_list.read(0))
+print(my_list.read(1))
+print(my_list.read(2))
+print(my_list.read(3))
+print(my_list.read(4))
+print(my_list.read(5))
